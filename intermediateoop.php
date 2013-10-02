@@ -38,10 +38,13 @@ class Dog extends Animal
 	}
 }
 
-// class Dragon extends Animal 
-// {
-// 	var $health = 170;
-// }
+class Dragon extends Animal 
+{
+	function fly()
+	{
+		$this->health = $this->health - '10'.' health';
+	}
+}
 
 $br = "<br>";
 $animal = new Animal('Zebra',100);
@@ -57,8 +60,6 @@ echo $br;
 echo $animal->run();
 echo $br;
 echo $animal->displayHealth();
-
-
 
 echo "<h1>Dog</h1>";
 
@@ -77,8 +78,22 @@ echo $dog->pet();
 echo $br;
 echo $dog->displayHealth();
 
-
-
+echo "<h1>Dragon</h1>";
+$dragon = new Dragon('Dragon',170);
+echo $dragon->walk();
+echo $br;
+echo $dragon->walk();
+echo $br;
+echo $dragon->walk();
+echo $br;
+echo $dragon->run();
+echo $br;
+echo $dragon->run();
+echo $br;
+echo $dragon->fly();
+echo $br;
+echo $dragon->fly();
+echo "This is a dragon! ".$dragon->displayHealth();
 
 
 
