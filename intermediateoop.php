@@ -3,11 +3,12 @@
 class Animal
 {
 	var $health;
+	var $name;
 
-	function __construct($name)
+	function __construct($name,$health)
 	{
-		$this->$name = $name;
-		$this->health = 100;
+		$this->name = $name;
+		$this->health = $health;
 	}
 
 
@@ -18,7 +19,7 @@ class Animal
 
 	function run()
 	{
-		return $this->heath = $this->health - '5'.' health';
+		return $this->health = $this->health - '5'.' health';
 	}
 
 	function displayHealth()
@@ -28,12 +29,53 @@ class Animal
 
 }
 
-$zebra = new Animal('Zebra');
+class Dog extends Animal
+{
+	
+	function pet()
+	{
+		return $this->health = $this->health + '5'.' health';
+	}
+}
 
-echo $zebra->walk();
+// class Dragon extends Animal 
+// {
+// 	var $health = 170;
+// }
+
+$br = "<br>";
+$animal = new Animal('Zebra',100);
+echo "<h1>Animal Class</h1>";
+echo $animal->walk();
+echo $br;
+echo $animal->walk();
+echo $br;
+echo $animal->walk();
+echo $br;
+echo $animal->run();
+echo $br;
+echo $animal->run();
+echo $br;
+echo $animal->displayHealth();
 
 
 
+echo "<h1>Dog</h1>";
+
+$dog = new Dog('Shephard',150);
+echo $dog->walk();
+echo $br;
+echo $dog->walk();
+echo $br;
+echo $dog->walk();
+echo $br;
+echo $dog->run();
+echo $br;
+echo $dog->run();
+echo $br;
+echo $dog->pet();
+echo $br;
+echo $dog->displayHealth();
 
 
 
