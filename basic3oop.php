@@ -2,39 +2,51 @@
 
 class HTML_Helper
 {
-	var $first_name;
-	var $last_name;
-	var $nick_name;
-
-	function __construct($first_name,$last_name,$nick_name)
-	{
-		$this->first_name = $first_name;
-		$this->last_name = $last_name;
-		$this->nick_name = $nick_name;
-	}
 
 	function print_table($array)
 	{
-		$array = array();
+		
 		$html = "";
-		foreach ($array as $key=> $value) 
+		
+		foreach($array as $value) 
 		{
-			$html .= "<table>";
-			foreach ($value as $k => $val) 
+			$html .= "<table border='1px'>";
+			foreach ($value as $key => $val) 
 			{
 				$html .= "<tr>
-							<td>{$val}</td>
+							<td>".$key."</td><td>".$val."</td>
 						 </tr>";
 			}
-			$html .= "</table>";
+			$html .= "</table>";	
 		}
+		
+		return $html;
 	}
 
-	function print_select()
+	function print_select($name,$array)
 	{
-
+		$html = "";
+		$html .="<select name='{$name}'>";
+		foreach ($array as $value) 
+		{
+			$html .="<option value='{$value}'>{$value}</option>";
+		}
+		$html .="</select>";
+		return $html;
 	}
 }
+
+
+
+
+$new = new HTML_Helper();
+
+$array = array(array('First Name'=>'Josue', 'Last Name' =>'Rojas','Nick Name'=>'Jdawg'),array('First Name' => 'Jama','Last Name' => 'Rojas','Nick Name' =>'chousama'));
+echo $new->print_table($array);
+
+$states1 = new HTML_Helper();
+$states2 = array('CA','TX','NY','FL','WA');
+echo $states1->print_select('states',$states2);
 
 
 
