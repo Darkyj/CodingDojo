@@ -1,36 +1,35 @@
 <?php 
 	require('oopintermediateconnection.php');
+	require('oopintermediateclass.php');
 	
-	class Process extends Database
+
+	function list_countries()
 	{
-
-		var $countryname;
-		var $cont;
-		var $region;
-		var $population;
-		var $lifeexpect;
-		var $govform;
-
-		var $country = "SELECT Country,Continent,Region,Population,LifeExpectancy,GovernmentForm FROM Country";
-
-		if(isset($_POST['name'])) 
+		$query = "SELECT name FROM Country";
+		$count = fetch_all($query);
+		$drop = "<select>";
+		foreach ($count as $val) 
 		{
-			return var $grabbing = fetch_record($country);	
+			$drop .= "<option value='{$val['name']}'>{$val['name']}</option>";
 		}
-
-		fucntion __construct()
-		{
-			$this->countryname = $grabbing['Country'];
-			$this->cont = $grabbing['Continent'];
-			$this->region = $grabbing['Region'];
-			$this->population = $grabbing['Population'];
-			$this->lifeexpect = $grabbing['LifeExpectancy'];
-			$this->govform = $grabbing['GovernmentForm'];
-		}
-
+		$drop .= "</select>";
+		return $drop;
 	}
 
-
+	if(isset($_POST['country'])) 
+	{
+		$queries = "SELECT Name,Continent,Region,Population,LifeExpectancy, GovernmentForm FROM Country WHERE Name = '{$_POST['country']}'";
+		$grab = fetch_record($queries);
+		$country = new Process($grab['Name'],$grab['Continent'],$grab['Region'],$grab['Population'],$grab['LifeExpectancy'],$grab['GovernmentForm']);
+		$table ="
+				<p>Country:". $country->get_country()."</p>
+				<p>Continent:". $country->get_continent()."</p>
+				<p>Region:". $country->get_region()."</p>
+				<p>Population:" .number_format($country->get_population())."</p>
+				<p>Life Expectancy:" .$country->get_lifeexpect()."</p>
+				<p>Government Form:". $country->get_gov()."</p>";
+		echo json_encode($table);
+	}
 
 
 

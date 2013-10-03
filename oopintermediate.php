@@ -1,9 +1,5 @@
 <?php 
-	require('oopintermediateconnection.php');
-	$selecting = "SELECT name FROM Country";
-	$info = new Database();
-	$info2->fetch_all($info);
-
+	require('oopintermediateprocess.php');
  ?>
 <!doctype html>
 <html lang="en">
@@ -12,7 +8,27 @@
 	<title>IntermediateII OOP</title>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script type="text/javascript">
-
+		$(document).ready(function()
+		{
+			$('select').on('change', function()
+			{
+				var value = $(this).val();
+				$('#hidden').val(value);
+					$.post(
+						$('#form').attr('action'),
+						$('#form').serialize(),
+						function(data)
+						{
+							$('#target').html(data);
+						}, 'json');
+			});
+			$.post($('#form').attr('action'),
+				$('#form').serialize(),
+				function(data)
+			{
+				$('#target').html(data);
+			},'json');
+		});
 
 
 
@@ -20,25 +36,17 @@
 </head>
 <body>
 	<div>
+		<?php 
+				echo list_countries();
+		?>
 		<h4>Select Country</h4>
-		<form action="oopintermediateprocess.php" method="post">
-			<select name="name" id="selecting">
-			<?php 
-				foreach ($info as $value) 
-				{
-					echo "<option value='{$value['name']}'>{$value['name']}</option>";
-				}
-			 ?>
-			 </select>
-			 <button>Check Info</button>
+		<form id='form' action="oopintermediateprocess.php" method="post">
+			<input id='hidden' type="hidden" name="country" value='Aruba'>		
 		</form>
 	</div>
-	<div>
 		<h2>Country Information</h2>
-		<?php 
-			$information = new Process;
-			echo $information;
-		 ?>
+	<div id='target'>
+		
 	</div>
 </body>
 </html>
